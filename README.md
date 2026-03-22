@@ -3,3 +3,5 @@
 1. [요구사항 정리 및 기능 명세](./docs/01-requirements.md)
 
 2. [API 명세](./docs/02-api.md)
+
+3. [시퀀스 다이어그램](./docs/03-sequence-diagrams.md)
