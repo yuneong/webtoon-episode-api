@@ -12,6 +12,8 @@ POST /users/{userId}/episodes/{episodeId}/purchase
 path variable: 
     userId 사용자 ID
     episodeId 회차 ID
+header:
+    idempotencyKey 중복 요청 방지 키 (클라이언트 생성 UUID)
 body: 
     없음
 ```
@@ -23,14 +25,14 @@ body:
   "status": 200,
   "message": "구매가 완료되었습니다.",
   "data": {
-    "purchaseId",
+    "purchaseId": Long,
     "episode": {
-      "episodeId",
-      "title",
-      "price"
+      "episodeId": Long,
+      "title": String,
+      "price": Int
     },
-    "deductedCoin",
-    "purchasedAt"
+    "deductedCoin": Int,
+    "purchasedAt": DateTime
   }
 }
 ```
@@ -48,8 +50,8 @@ error
 | 404 | `USER_NOT_FOUND` | 존재하지 않는 사용자입니다. |
 | 404 | `EPISODE_NOT_FOUND` | 존재하지 않는 회차입니다. |
 | 409 | `ALREADY_PURCHASED` | 이미 구매한 회차입니다. |
-| 409 | `ALREADY_PURCHASED` | 동시 요청으로 인한 중복 구매가 감지되었습니다. |
-| 400 | `INVALID_COIN_AMOUNT` | 코인 금액이 올바르지 않습니다. (0원, 음수, 숫자 외 형식 불가) |
+| 409 | `OPTIMISTIC_LOCK_CONFLICT` | 동시 요청으로 인한 중복 구매가 감지되었습니다. |
+| 400 | `INVALID_COIN_AMOUNT` | 코인 금액이 올바르지 않습니다. |
 | 400 | `MISSING_REQUIRED_FIELD` | 필수 요청값이 누락되었습니다. |
 | 500 | `PURCHASE_FAILED` | 결제 처리 중 오류가 발생했습니다. |
 
@@ -78,13 +80,13 @@ body:
   "message": "열람 권한이 확인되었습니다.",
     "data": {
       "episode": {
-        "episodeId",
-        "title",
-        "episodeNumber"
+        "episodeId": Long,
+        "title": String,
+        "episodeNumber": Int
       },
       "content": {
-        "contentUrl",
-        "grantedAt"
+        "contentUrl": String,
+        "grantedAt": DateTime
       }
   }
 }
