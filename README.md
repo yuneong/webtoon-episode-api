@@ -5,3 +5,5 @@
 2. [API 명세](./docs/02-api.md)
 
 3. [시퀀스 다이어그램](./docs/03-sequence-diagrams.md)
+
+4. [DB 설계](./docs/04-erd.md)
